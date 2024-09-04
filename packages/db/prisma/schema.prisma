@@ -1,0 +1,88 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model FreeLancer {
+  id             String   @id @default(uuid())
+  firstName      String
+  lastName       String
+  username       String   @unique
+  password       String
+  earnedTillDate BigInt //in paise
+  profilePicLink String?  @unique
+  workLink       String?  @unique
+  aboutMe        String?
+  isAvailable    Boolean  @default(true)
+  email          String   @unique
+  isVerrfied     Boolean  @default(false)
+  createdAt      DateTime @default(now())
+  skills         Skill[]
+  orders         Order[]
+}
+
+model Skill {
+  id       String     @id @default(uuid())
+  title    String
+  lancerId String
+  user     FreeLancer @relation(fields: [lancerId], references: [id])
+}
+
+model Client {
+  id             String   @id @default(uuid())
+  firstName      String
+  lastName       String
+  username       String   @unique
+  password       String
+  profilePicLink String?  @unique
+  email          String   @unique
+  isVerrfied     Boolean  @default(false)
+  createdAt      DateTime @default(now())
+  orders         Order[]
+}
+
+model Order {
+  id        String     @id @default(uuid())
+  clientId  String
+  lancerId  String
+  price     BigInt //in paise
+  isOpen    Boolean    @default(true)
+  client    Client     @relation(fields: [clientId], references: [id])
+  lancer    FreeLancer @relation(fields: [lancerId], references: [id])
+  createdAt DateTime   @default(now())
+  modissue  ModIssue?
+}
+
+model ModIssue {
+  id        String    @id @default(uuid())
+  orderId   String    @unique
+  raisedBy  String
+  price     BigInt
+  picked    Boolean   @default(false)
+  modId     String?
+  order     Order     @relation(fields: [orderId], references: [id])
+  moderator Moderator @relation(fields: [modId], references: [id])
+}
+
+model Moderator {
+  id             String     @id @default(uuid())
+  firstName      String
+  lastName       String
+  username       String     @unique
+  password       String
+  profilePicLink String?    @unique
+  email          String     @unique
+  isVerrfied     Boolean    @default(false)
+  createdAt      DateTime   @default(now())
+  modIssues      ModIssue[]
+}
