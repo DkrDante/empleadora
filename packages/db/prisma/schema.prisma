@@ -19,7 +19,7 @@ model FreeLancer {
   lastName       String
   username       String   @unique
   password       String
-  earnedTillDate BigInt //in paise
+  earnedTillDate BigInt   @default(0) //in paise
   profilePicLink String?  @unique
   workLink       String?  @unique
   aboutMe        String?
@@ -44,7 +44,9 @@ model Client {
   lastName       String
   username       String   @unique
   password       String
-  profilePicLink String?  @unique
+  isActive       Boolean  @default(true)
+  isOrganization Boolean  @default(false)
+  profilePicLink String?  @default("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png")
   email          String   @unique
   isVerrfied     Boolean  @default(false)
   createdAt      DateTime @default(now())
@@ -64,14 +66,14 @@ model Order {
 }
 
 model ModIssue {
-  id        String    @id @default(uuid())
-  orderId   String    @unique
+  id        String     @id @default(uuid())
+  orderId   String     @unique
   raisedBy  String
   price     BigInt
-  picked    Boolean   @default(false)
+  picked    Boolean    @default(false)
   modId     String?
-  order     Order     @relation(fields: [orderId], references: [id])
-  moderator Moderator @relation(fields: [modId], references: [id])
+  order     Order      @relation(fields: [orderId], references: [id])
+  moderator Moderator? @relation(fields: [modId], references: [id])
 }
 
 model Moderator {

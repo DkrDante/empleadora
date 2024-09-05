@@ -1,6 +1,6 @@
 import React from 'react';
 
-const empleadora = () => {
+const Empleadora = () => {
   return (
     <div className="bg-black min-h-screen text-white overflow-hidden relative">
       <div className="absolute inset-0 flex items-center justify-center opacity-5 overflow-hidden">
@@ -29,4 +29,4 @@ const empleadora = () => {
   );
 };
 
-export default empleadora;
+export default Empleadora;
