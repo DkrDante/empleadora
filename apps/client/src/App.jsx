@@ -1,35 +1,32 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react';
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const empleadora = () => {
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="bg-black min-h-screen text-white overflow-hidden relative">
+      <div className="absolute inset-0 flex items-center justify-center opacity-5 overflow-hidden">
+        <div className="text-[40rem] font-bold whitespace-nowrap animate-marquee">
+          empleadora empleadora empleadora
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+      <nav className="flex justify-between items-center p-4 relative z-10">
+        <div className="text-2xl font-bold">Empleadora</div>
+        <div className="space-x-4">
+          <a href="#" className="hover:text-gray-300">About</a>
+          <a href="#" className="hover:text-gray-300">Products</a>
+          <a href="#" className="hover:text-gray-300">Blog</a>
+          <a href="#" className="hover:text-gray-300">Contests</a>
+          <a href="#" className="hover:text-gray-300">Contact us</a>
+        </div>
+      </nav>
+      <main className="flex items-center justify-center min-h-[calc(100vh-64px)] relative z-10">
+        <h1 className="text-6xl font-normal text-center">
+          Aura
+          <br />
+          old money
+        </h1>
+      </main>
+    </div>
+  );
+};
 
-export default App
+export default empleadora;
